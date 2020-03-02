@@ -1,28 +1,40 @@
 
 from laspy.file import File
 import numpy as np
+import time
+import re
+import shutil
 import os
 import lasio
 import sys
+from _getfiles import getlasfiles
 
 currentDirectory = os.getcwd()
 print(currentDirectory)
-os.chdir('F:/Temp/Logs')
-currentDirectory = os.getcwd()
-print(currentDirectory)
+
+# os.chdir('C:/Temp/LAS')
+# currentDirectory = os.getcwd()
+# print(currentDirectory)
+destination = "c:\\TEMP\\LAS\\"
+filelocation: str = "D:\\xxSampleData\\LAS-Test"
+ListofFiles = getlasfiles(filelocation)
+
+
 
 #ListofFiles = os.listdir(currentDirectory)
-ListofFiles = [f for f in os.listdir(currentDirectory) if f.endswith('.las')]
-print(ListofFiles)
+#ListofFiles = [f for f in os.listdir(currentDirectory) if f.endswith('.las')]
+
+#print(ListofFiles)
 FileCount = len(ListofFiles)
-#print(FileCount)
+print(FileCount)
 
 
-for index in range( len(ListofFiles)):
-        FiletoParse = currentDirectory + '\\' + ListofFiles[index]
-
+for index in range(len(ListofFiles)):
+        FiletoParse = filelocation + '\\' + ListofFiles[index]
+        #FiletoParse = currentDirectory + '\\' + ListofFiles[index]
+        #FiletoParse = ListofFiles[index]
+        print(index)
         las = lasio.read(FiletoParse)
-        # print('files to parse: ' + FiletoParse)
         #print(FiletoParse)
         #print(las.well)
         #print(las.header)
@@ -50,7 +62,7 @@ for index in range( len(ListofFiles)):
             if las.well.comp.value is not None:
                 company = las.well.comp.value
                 company = company.replace(',', '')
-
+                company = re.sub('[^A-Za-z0-9]+', ' ', company)
             else:
                 company = "unknown"
                 print('unknown company')
@@ -60,6 +72,7 @@ for index in range( len(ListofFiles)):
         try:
             if las.well.well.value is not None:
                 wellname = las.well.well.value
+                wellname = re.sub('[^A-Za-z0-9]+', ' ', wellname)
             else:
                 wellname = "unknown"
 
@@ -134,12 +147,23 @@ for index in range( len(ListofFiles)):
 
 
         newfilename = company + '--' + wellname + '--' + str(uwi) +'--(' + str(curvelist[:-1]) +').las'
+        head, tail = os.path.split(FiletoParse)
 
-        try:
-            print(newfilename)
-            os.rename(FiletoParse,newfilename)
+       # try:
 
-        except:
-            print("An exception occurred")
 
+        print('files to parse: ' + FiletoParse)
+        print('new file name ' + newfilename)
+        print('destination ' + destination)
+
+        originalname = destination + tail
+        print('original name...' + originalname)
+        rename = destination + newfilename
+        print('rename file...' + rename)
+        shutil.copy2(FiletoParse, rename)
+        #time.sleep(1)
+        #os.rename(originalname, rename)
+
+       # except:
+        #print("An exception occurred")
 
