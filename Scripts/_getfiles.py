@@ -1,6 +1,6 @@
 
 import os
-import lasio
+
 files = []
 
 

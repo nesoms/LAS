@@ -1,12 +1,9 @@
-
-from laspy.file import File
-import numpy as np
-import time
+import os
 import re
 import shutil
-import os
+
 import lasio
-import sys
+
 from _getfiles import getlasfiles
 
 currentDirectory = os.getcwd()

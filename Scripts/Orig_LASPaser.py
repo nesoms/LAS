@@ -1,9 +1,6 @@
-
-from laspy.file import File
-import numpy as np
 import os
+
 import lasio
-import sys
 
 currentDirectory = os.getcwd()
 print(currentDirectory)
