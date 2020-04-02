@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>NoSuchBucket</Code><Message>The specified bucket does not exist</Message><BucketName>NLP_Project</BucketName><RequestId>1CBBE9D3B27E5320</RequestId><HostId>Y5fybyGOnEvhf0JQLXKa4OyfpYy5ErfvCJOkC3v4GpQA05JpjSU8SkeWEjZ5+hAbPem2fM30Bcg=</HostId></Error>
